@@ -14,9 +14,11 @@ class PriceHelper:
             amount = float(amount)
         except ValueError:  # проверка, что количество валюты ввели цифрами
             raise ConvertionException(f'Неудачный объем: {amount}')
-        if quote[:3] not in keys3:
+        if quote[:3] not in keys3 or \
+           not any(key.startswith(quote) for key in keys):
             raise ConvertionException(f'Неизвестная исходная валюта: {quote}')
-        if base[:3] not in keys3:
+        if base[:3] not in keys3 or \
+           not any(key.startswith(base) for key in keys):
             raise ConvertionException(f'Неизвестная валюта: {base}')
 
         if quote == base:
